@@ -10,7 +10,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class ControllerUnitTest {
 
     String URL_BASE = "/api/account";
-    String URL_CURRENT;
 
     MockMvc mockMvc;
 

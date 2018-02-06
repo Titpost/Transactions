@@ -1,4 +1,4 @@
-package edu.billing.config;
+package edu.testing.config;
 
 
 import org.springframework.context.annotation.ComponentScan;

@@ -1,4 +1,4 @@
-package edu.billing.controller;
+package edu.testing.controller;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;

@@ -10,10 +10,11 @@ import static org.hamcrest.core.IsCollectionContaining.hasItem;
 import static org.hamcrest.core.IsCollectionContaining.hasItems;
 import static org.junit.Assert.assertThat;
 
-class ControllerIntegrationTest {
+public class ControllerIntegrationTest {
 
     String BASE_URI = "http://localhost:8080/api/account";
     static final String UNKNOWN_ID = "Unknown";
+    public static final String KNOWN_ID = "7777 7777 7777 7777";
 
     @Autowired
     RestTemplate template;

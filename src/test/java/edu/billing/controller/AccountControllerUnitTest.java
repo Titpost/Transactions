@@ -3,6 +3,7 @@ package edu.billing.controller;
 import edu.billing.filter.CORSFilter;
 import edu.billing.model.Account;
 import edu.billing.service.interfaces.AccountService;
+import edu.testing.listeners.AllureAttachmentListener;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -10,6 +11,10 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.testng.annotations.Listeners;
+import ru.yandex.qatools.allure.annotations.Features;
+import ru.yandex.qatools.allure.annotations.Step;
+import ru.yandex.qatools.allure.annotations.Stories;
 
 import java.util.Arrays;
 import java.util.List;
@@ -26,6 +31,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
+@Listeners(AllureAttachmentListener.class)
+@Features({"Allure Reports Suite"})
+@Stories({"Unit tests"})
 public class AccountControllerUnitTest extends ControllerUnitTest {
 
     @Mock
@@ -46,6 +54,7 @@ public class AccountControllerUnitTest extends ControllerUnitTest {
     // =========================================== Get All Accounts ==========================================
 
     @Test
+    @Step
     public void test_get_all_success() throws Exception {
         final String id1 = "TestOne";
         final String id2 = "TestTwo";

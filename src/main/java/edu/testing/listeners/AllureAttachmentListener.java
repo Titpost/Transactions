@@ -11,11 +11,11 @@ import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
 public class AllureAttachmentListener extends TestListenerAdapter {
 
-    @Attachment(value = "Page screenshot", type = "image/png")
+//    @Attachment(value = "Page screenshot", type = "image/png")
     public byte[] makeScreenshot() {
         byte[] array = {1};
         try {
-            return ((TakesScreenshot) getWebDriver()).getScreenshotAs(OutputType.BYTES);
+            //return ((TakesScreenshot) getWebDriver()).getScreenshotAs(OutputType.BYTES);
         } catch (WebDriverException e) {
             e.printStackTrace();
         }

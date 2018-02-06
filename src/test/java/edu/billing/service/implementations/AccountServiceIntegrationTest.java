@@ -1,6 +1,7 @@
 package edu.billing.service.implementations;
 
-import edu.billing.config.AccountServiceIntegrationTestConfig;
+import edu.testing.config.AccountServiceIntegrationTestConfig;
+import edu.billing.controller.ControllerIntegrationTest;
 import edu.billing.model.Account;
 import edu.billing.service.interfaces.AccountService;
 import org.junit.Before;
@@ -39,6 +40,15 @@ public class AccountServiceIntegrationTest extends ServiceIntegrationTest {
     @Test
     public void getAll() {
         assertEquals(getCount(), accountService.getAllAccounts().size());
+    }
+
+    /**
+     * Get account
+     */
+    @Test
+    public void getOne() {
+        final Account account = accountService.getAccountByNumber(ControllerIntegrationTest.KNOWN_ID);
+        assertEquals(700000, account.getAmount());
     }
 
     /**
@@ -86,7 +96,7 @@ public class AccountServiceIntegrationTest extends ServiceIntegrationTest {
         // must be +1
         assertEquals(initialCount + 1, getCount());
 
-        // create new account with same id and amount
+        // create new account with same KNOWN_ID and amount
         accountService.saveAccount(account);
 
         // must be + 1 (not + 2)
@@ -94,7 +104,7 @@ public class AccountServiceIntegrationTest extends ServiceIntegrationTest {
     }
 
     /**
-     * Try to find not existing account by wrong ID (id)
+     * Try to find not existing account by wrong ID (KNOWN_ID)
      */
     @Test
     public void findNotExisting() {

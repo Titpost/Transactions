@@ -1,6 +1,6 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
-<suite name="Account tests" verbose="1" >
+<suite name="Account tests" verbose="2" annotations="JDK">
     <test name="Unit tests">
         <classes>
             <class name="edu.billing.controller.AccountControllerUnitTest"/>

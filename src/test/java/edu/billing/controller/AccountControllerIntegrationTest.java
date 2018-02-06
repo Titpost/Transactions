@@ -2,6 +2,7 @@ package edu.billing.controller;
 
 
 import edu.billing.model.Account;
+import edu.testing.controller.ApiControllerIntegrationTest;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.http.HttpStatus;
@@ -10,6 +11,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.web.client.HttpClientErrorException;
+import ru.yandex.qatools.allure.annotations.Step;
 
 import java.net.URI;
 
@@ -35,11 +37,11 @@ public class AccountControllerIntegrationTest extends ControllerIntegrationTest 
     // =========================================== Get Account By ID =========================================
 
     @Test
+    @Step
     public void test_get_by_id_success(){
-        final String id = "0000 0000 0000 0000";
-        ResponseEntity<Account> response = template.getForEntity(BASE_URI + "/" + id, Account.class);
+        ResponseEntity<Account> response = template.getForEntity(BASE_URI + "/" + KNOWN_ID, Account.class);
         Account amount = response.getBody();
-        assertThat(amount.getId(), is(id));
+        assertThat(amount.getId(), is(KNOWN_ID));
         assertThat(response.getStatusCode(), is(HttpStatus.OK));
         validateCORSHttpHeaders(response.getHeaders());
     }
@@ -91,6 +93,7 @@ public class AccountControllerIntegrationTest extends ControllerIntegrationTest 
     }
 
     @Test
+    @Step
     public void test_update_account_fail(){
         Account existingAccount = Account.builder().id(UNKNOWN_ID)
                 .id("update")
