@@ -1,0 +1,5 @@
+CREATE TABLE IF NOT EXISTS account
+(
+    id VARCHAR(255) PRIMARY KEY,
+    amount BIGINT NOT NULL
+);
