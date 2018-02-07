@@ -57,28 +57,28 @@ public class AccountServiceIntegrationTest extends ServiceIntegrationTest {
     @Test
     public void createNew() {
 
-        long prevCount = getCount();
+        final long prevCount = getCount();
 
         // create new account with hardId and some amount
-        final int amount = 1;
-        Account account = Account.builder().id(hardId).amount(amount).build();
+        final int amount1 = 1;
+        Account account = Account.builder().id(hardId).amount(amount1).build();
         accountService.saveAccount(account);
 
         // create new account with hardId2 and some amount
-        account = Account.builder().id(hardId + "_2").amount(amount).build();
+        account = Account.builder().id(hardId + "_2").amount(amount1).build();
         accountService.saveAccount(account);
 
         // create new account with hardId1 and some amount
-        final int id2 = 2;
-        account = Account.builder().id(hardId).amount(id2).build();
+        final int amount2 = 2;
+        account = Account.builder().id(hardId).amount(amount2).build();
         accountService.saveAccount(account);
 
         // create new account with hardId2 and some amount
-        account = Account.builder().id(hardId +"_2").amount(id2).build();
+        account = Account.builder().id(hardId +"_2").amount(amount2).build();
         accountService.saveAccount(account);
 
         // check row count
-        assertEquals(prevCount + 4, getCount());
+        assertEquals(prevCount + 2, getCount());
     }
 
     /**

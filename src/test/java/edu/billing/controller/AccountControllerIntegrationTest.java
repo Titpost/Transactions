@@ -52,7 +52,7 @@ public class AccountControllerIntegrationTest extends ControllerIntegrationTest 
     @Test
     public void get_by_id_failure_not_found() {
         try {
-            ResponseEntity<Account> response = template.getForEntity(BASE_URI + "/" + UNKNOWN_ID, Account.class);
+            template.getForEntity(BASE_URI + "/" + UNKNOWN_ID, Account.class);
             fail("should return 404 not found");
         } catch (HttpClientErrorException e) {
             assertThat(e.getStatusCode(), is(HttpStatus.NOT_FOUND));
@@ -66,7 +66,7 @@ public class AccountControllerIntegrationTest extends ControllerIntegrationTest 
     @Test
     public void create_new_account_success() {
         Account newAccount = Account.builder().id("888")
-                .id("new amount" + Math.random())
+                .amount(1)
                 .build();
         URI location = template.postForLocation(BASE_URI, newAccount, Account.class);
         assertThat(location, notNullValue());
@@ -77,8 +77,8 @@ public class AccountControllerIntegrationTest extends ControllerIntegrationTest 
      */
     @Test
     public void create_new_account_fail_exists() {
-        Account existingAccount = Account.builder().id("1")
-                .id("new amount" + Math.random())
+        Account existingAccount = Account.builder().id(KNOWN_ID)
+                .amount(1)
                 .build();
         try {
             template.postForLocation(BASE_URI, existingAccount, Account.class);
@@ -94,8 +94,8 @@ public class AccountControllerIntegrationTest extends ControllerIntegrationTest 
      */
     @Test
     public void update_account_success() {
-        Account existingAccount = Account.builder().id("2")
-                .id("AccountName4")
+        Account existingAccount = Account.builder().id(KNOWN_ID)
+                .amount(777)
                 .build();
         template.put(BASE_URI + "/" + existingAccount.getId(), existingAccount);
     }
