@@ -49,7 +49,7 @@ public class JdbcTemplateAccountDao implements AccountDao {
 
     @Override
     public void delete(String id) {
-        jdbcTemplate.update("DELETE FROM account WHERE id = ? AND amount = ?", id);
+        jdbcTemplate.update("DELETE FROM account WHERE id = ?", id);
     }
 
     @Override

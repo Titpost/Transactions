@@ -62,8 +62,12 @@ public class AccountController extends Controller {
         return new ResponseEntity<>(headers, HttpStatus.CREATED);
     }
 
-    // =========================================== Update Existing Account ===================================
-
+    /**
+     * Update Existing Account
+     * @param id - account number
+     * @param account - account POJO
+     * @return created account
+     */
     @RequestMapping(value = "{id}", method = RequestMethod.PUT)
     public ResponseEntity<Account> update(@PathVariable String id,
                                           @RequestBody Account account) {
@@ -77,19 +81,17 @@ public class AccountController extends Controller {
         return new ResponseEntity<>(currentAccount, responseHeaders, HttpStatus.OK);
     }
 
-//    // =========================================== Delete Account ============================================
-//
-//    @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
-//    public ResponseEntity<Void> delete(@PathVariable("id") int id) {
-//        LOG.info("deleting account with id: {}", id);
-//        Account account = service.getAccountById(id);
-//
-//        if (account == null) {
-//            LOG.info("Unable to delete. Account with id {} not found", id);
-//            return new ResponseEntity<>(responseHeaders, HttpStatus.NOT_FOUND);
-//        }
-//
-//        service.deleteAccount(id);
-//        return new ResponseEntity<>(responseHeaders, HttpStatus.OK);
-//    }
+    // =========================================== Delete Account ============================================
+
+    @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<Void> delete(@PathVariable("id") String id) {
+        Account account = service.getAccountByNumber(id);
+
+        if (account == null) {
+            return new ResponseEntity<>(responseHeaders, HttpStatus.NOT_FOUND);
+        }
+
+        service.deleteAccount(id);
+        return new ResponseEntity<>(responseHeaders, HttpStatus.OK);
+    }
 }

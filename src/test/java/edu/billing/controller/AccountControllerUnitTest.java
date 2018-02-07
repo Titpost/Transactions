@@ -13,7 +13,6 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.testng.annotations.Listeners;
 import ru.yandex.qatools.allure.annotations.Features;
-import ru.yandex.qatools.allure.annotations.Step;
 import ru.yandex.qatools.allure.annotations.Stories;
 
 import java.util.Arrays;
@@ -21,14 +20,9 @@ import java.util.List;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.core.Is.is;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 
 @Listeners(AllureAttachmentListener.class)
@@ -51,11 +45,12 @@ public class AccountControllerUnitTest extends ControllerUnitTest {
                 .build();
     }
 
-    // =========================================== Get All Accounts ==========================================
-
+    /**
+     * Get All Accounts
+     * @throws Exception in MockMvc.perform
+     */
     @Test
-    @Step
-    public void test_get_all_success() throws Exception {
+    public void get_all_success() throws Exception {
         final String id1 = "TestOne";
         final String id2 = "TestTwo";
         Account account1 = Account.builder()
@@ -82,7 +77,7 @@ public class AccountControllerUnitTest extends ControllerUnitTest {
     }
 
     @Test
-    public void test_cors_headers() throws Exception {
+    public void cors_headers() throws Exception {
         super.test_cors_headers();
     }
 }

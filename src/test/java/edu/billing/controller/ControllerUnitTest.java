@@ -13,12 +13,15 @@ public class ControllerUnitTest {
 
     MockMvc mockMvc;
 
-    String getBaseUrl() {
+    private String getBaseUrl() {
         return this.URL_BASE;
     }
 
-    // =========================================== CORS Headers ===========================================
 
+    /**
+     * CORS Headers
+     * @throws Exception in MockMvc.perform
+     */
     public void test_cors_headers() throws Exception {
         mockMvc.perform(get(getBaseUrl()))
                 .andExpect(header().string("Access-Control-Allow-Origin", "*"))
@@ -27,9 +30,6 @@ public class ControllerUnitTest {
                 .andExpect(header().string("Access-Control-Max-Age", "3600"));
     }
 
-    /*
-     * converts a Java object into JSON representation
-     */
     static String asJsonString(final Object obj) {
         try {
             return new ObjectMapper().writeValueAsString(obj);

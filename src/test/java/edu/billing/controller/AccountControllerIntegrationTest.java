@@ -11,7 +11,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.web.client.HttpClientErrorException;
-import ru.yandex.qatools.allure.annotations.Step;
 
 import java.net.URI;
 
@@ -25,20 +24,21 @@ import static org.junit.Assert.assertThat;
 @ContextConfiguration(classes = {ApiControllerIntegrationTest.class})
 public class AccountControllerIntegrationTest extends ControllerIntegrationTest {
 
-    // ======================================= Get All the Accounts ==========================================
-
+    /**
+     * Get All the Accounts
+     */
     @Test
-    public void test_get_all_success(){
+    public void get_all_success() {
         ResponseEntity<Account[]> response = template.getForEntity(BASE_URI, Account[].class);
         assertThat(response.getStatusCode(), is(HttpStatus.OK));
         validateCORSHttpHeaders(response.getHeaders());
     }
 
-    // =========================================== Get Account By ID =========================================
-
+    /**
+     * Get Account By ID
+     */
     @Test
-    @Step
-    public void test_get_by_id_success(){
+    public void get_by_id_success() {
         ResponseEntity<Account> response = template.getForEntity(BASE_URI + "/" + KNOWN_ID, Account.class);
         Account amount = response.getBody();
         assertThat(amount.getId(), is(KNOWN_ID));
@@ -46,21 +46,25 @@ public class AccountControllerIntegrationTest extends ControllerIntegrationTest 
         validateCORSHttpHeaders(response.getHeaders());
     }
 
+    /**
+     * Fail on getting non-existing account
+     */
     @Test
-    public void test_get_by_id_failure_not_found(){
+    public void get_by_id_failure_not_found() {
         try {
             ResponseEntity<Account> response = template.getForEntity(BASE_URI + "/" + UNKNOWN_ID, Account.class);
             fail("should return 404 not found");
-        } catch (HttpClientErrorException e){
+        } catch (HttpClientErrorException e) {
             assertThat(e.getStatusCode(), is(HttpStatus.NOT_FOUND));
             validateCORSHttpHeaders(e.getResponseHeaders());
         }
     }
 
-    // =========================================== Create New Account ========================================
-
+    /**
+     * Create New Account
+     */
     @Test
-    public void test_create_new_account_success(){
+    public void create_new_account_success() {
         Account newAccount = Account.builder().id("888")
                 .id("new amount" + Math.random())
                 .build();
@@ -68,64 +72,74 @@ public class AccountControllerIntegrationTest extends ControllerIntegrationTest 
         assertThat(location, notNullValue());
     }
 
+    /**
+     * Fail on creating a duplicate account
+     */
     @Test
-    public void test_create_new_account_fail_exists(){
+    public void create_new_account_fail_exists() {
         Account existingAccount = Account.builder().id("1")
                 .id("new amount" + Math.random())
                 .build();
         try {
             template.postForLocation(BASE_URI, existingAccount, Account.class);
             fail("should return 409 conflict");
-        } catch (HttpClientErrorException e){
+        } catch (HttpClientErrorException e) {
             assertThat(e.getStatusCode(), is(HttpStatus.CONFLICT));
             validateCORSHttpHeaders(e.getResponseHeaders());
         }
     }
 
-    // =========================================== Update Existing Account ===================================
-
+    /**
+     * Update Existing Account
+     */
     @Test
-    public void test_update_account_success(){
+    public void update_account_success() {
         Account existingAccount = Account.builder().id("2")
                 .id("AccountName4")
                 .build();
         template.put(BASE_URI + "/" + existingAccount.getId(), existingAccount);
     }
 
+    /**
+     * Fail on updating a non-existing account
+     */
     @Test
-    @Step
-    public void test_update_account_fail(){
+    public void update_account_fail() {
         Account existingAccount = Account.builder().id(UNKNOWN_ID)
                 .id("update")
                 .build();
         try {
             template.put(BASE_URI + "/" + existingAccount.getId(), existingAccount);
             fail("should return 404 not found");
-        } catch (HttpClientErrorException e){
+        } catch (HttpClientErrorException e) {
             assertThat(e.getStatusCode(), is(HttpStatus.NOT_FOUND));
             validateCORSHttpHeaders(e.getResponseHeaders());
         }
     }
 
-    // =========================================== Delete Account ============================================
-
+    /**
+     * Delete an existing Account
+     */
     @Test
-    public void test_delete_account_success(){
+    public void delete_account_success() {
         template.delete(BASE_URI + "/" + getLastAccount().getId());
     }
 
+    /**
+     * Fail on deleting a non-existing account
+     */
     @Test
-    public void test_delete_account_fail(){
+    public void delete_account_fail() {
         try {
             template.delete(BASE_URI + "/" + UNKNOWN_ID);
             fail("should return 404 not found");
-        } catch (HttpClientErrorException e){
+        } catch (HttpClientErrorException e) {
             assertThat(e.getStatusCode(), is(HttpStatus.NOT_FOUND));
             validateCORSHttpHeaders(e.getResponseHeaders());
         }
     }
 
-    private Account getLastAccount(){
+    private Account getLastAccount() {
         ResponseEntity<Account[]> response = template.getForEntity(BASE_URI, Account[].class);
         Account[] accounts = response.getBody();
         return accounts[accounts.length - 1];
