@@ -16,5 +16,7 @@ public interface AccountService {
 
     boolean exists(Account person);
 
+    void updateAmount(String id, long amount);
+
     void deleteAccount(String id);
 }

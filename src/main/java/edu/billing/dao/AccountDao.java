@@ -12,5 +12,7 @@ public interface AccountDao extends Dao<Account, String> {
 
     List<Account> loadAll();
 
+    void updateAmount(String id, long amount);
+
     void delete(String id);
 }

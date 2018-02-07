@@ -41,6 +41,11 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    public void updateAmount(String id, long amount) {
+        accountDao.updateAmount(id, amount);
+    }
+
+    @Override
     public void deleteAccount(String id) {
         accountDao.delete(id);
     }

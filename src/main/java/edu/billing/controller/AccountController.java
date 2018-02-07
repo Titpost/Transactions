@@ -62,26 +62,21 @@ public class AccountController extends Controller {
         return new ResponseEntity<>(headers, HttpStatus.CREATED);
     }
 
-//    // =========================================== Update Existing Account ===================================
-//
-//    @RequestMapping(value = "{id}", method = RequestMethod.PUT)
-//    public ResponseEntity<Account> update(@PathVariable int id,
-//                                         @RequestBody Account account) {
-//        LOG.info("updating account: {}", account);
-//        Account currentUser = service.getAccountById(id);
-//
-//        if (currentUser == null) {
-//            LOG.info("Account with id {} not found", id);
-//            return new ResponseEntity<>(responseHeaders, HttpStatus.NOT_FOUND);
-//        }
-//
-//        currentUser.setId(account.getId());
-//        currentUser.setId(account.getId());
-//
-//        service.updateName(1, account.getId());
-//        return new ResponseEntity<>(currentUser, responseHeaders, HttpStatus.OK);
-//    }
-//
+    // =========================================== Update Existing Account ===================================
+
+    @RequestMapping(value = "{id}", method = RequestMethod.PUT)
+    public ResponseEntity<Account> update(@PathVariable String id,
+                                          @RequestBody Account account) {
+        Account currentAccount = service.getAccountByNumber(id);
+
+        if (currentAccount == null) {
+            return new ResponseEntity<>(responseHeaders, HttpStatus.NOT_FOUND);
+        }
+
+        service.updateAmount(account.getId(), account.getAmount());
+        return new ResponseEntity<>(currentAccount, responseHeaders, HttpStatus.OK);
+    }
+
 //    // =========================================== Delete Account ============================================
 //
 //    @RequestMapping(value = "{id}", method = RequestMethod.DELETE)

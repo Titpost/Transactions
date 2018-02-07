@@ -57,6 +57,12 @@ public class JdbcTemplateAccountDao implements AccountDao {
     }
 
     @Override
+    public void updateAmount(String id, long amount) {
+        jdbcTemplate.update("UPDATE account SET amount = ? WHERE id = ?"
+                , amount, id);
+    }
+
+    @Override
     public List<Account> loadAll() {
         return jdbcTemplate.query("SELECT * FROM account", (resultSet, i) -> toAccount(resultSet));
     }
