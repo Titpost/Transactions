@@ -2,8 +2,8 @@
 
 <suite name="Account tests" verbose="2" annotations="JDK">
     <test name="Unit tests">
-        <classes>
-            <class name="edu.billing.controller.AccountControllerUnitTest"/>
-        </classes>
+        <packages>
+            <package name="edu.billing.controller"/>
+        </packages>
     </test>
 </suite>

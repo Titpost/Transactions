@@ -14,5 +14,7 @@ public interface AccountService {
 
     Account getAccountByNumber(String account);
 
+    boolean exists(Account person);
+
     void deleteAccount(String id);
 }

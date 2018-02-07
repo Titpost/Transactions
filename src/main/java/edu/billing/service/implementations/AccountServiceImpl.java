@@ -36,6 +36,11 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    public boolean exists(Account person) {
+        return accountDao.exists(person);
+    }
+
+    @Override
     public void deleteAccount(String id) {
         accountDao.delete(id);
     }

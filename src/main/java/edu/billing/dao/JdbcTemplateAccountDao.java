@@ -85,4 +85,13 @@ public class JdbcTemplateAccountDao implements AccountDao {
         return jdbcTemplate.queryForObject("SELECT COUNT(*) FROM account",
                 Long.class);
     }
+
+    public boolean exists(Account account) {
+        List<Account> accounts = jdbcTemplate.query("SELECT * FROM account WHERE " +
+                        "id = ?",
+                new Object[]{account.getId()}, (resultSet, i) -> toAccount(resultSet));
+
+        return (accounts.size() > 0);
+    }
+
 }
