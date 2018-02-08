@@ -1,20 +1,54 @@
 <!DOCTYPE html>
 <html>
 <head>
-<style> html, body { margin: 0; padding: 0; height: 100%; } </style>
+    <style> html, body { margin: 0; padding: 0; height: 100%; } </style>
     <script src="https://unpkg.com/ag-grid@16.0.0/dist/ag-grid.min.js"></script>
 </head>
+
+
+<script >
+fetchData = () => {
+    fetch('http://localhost:8080/api/transact?from=1&to=2&amount=1000', {
+      method: 'GET',
+      dataType: 'JSON',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8'
+      }
+    })
+    .then((resp) => {
+      return resp.json();
+    })
+    .then((data) => {
+      this.setState({ suggestion: data.suggestion });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  }
+</script>
+
 <body>
 
-<div id="myGridFrom" class="ag-theme-fresh" style="height: 30%; width: 50%;"></div>
-
-<BR>
 Selection:
 <span id="selectedRows"></span>
-<BR>
-<BR>
 
-<div id="myGridTo" class="ag-theme-fresh" style="height: 30%; width: 50%;"></div>
-    <script src="main.js"></script>
+<div id="myGridFrom" class="ag-theme-fresh" style="width: 40%; height: 36%;"></div>
+
+<BR><BR>
+<div id='transactions'>
+    <input id='amount' type='edit'/>
+    <button onClick={ this.fetchData } id='transact'>transact</button>
+    <label>: </label>
+    <input id='from' type='edit' disabled='true'/>
+    <label> ⇒ </label>
+    <input id='to' type='edit' disabled='true'/>
+    <div>
+        <label> To select transaction direction: click on source account in the upper table and on target account in the lower one.</label>
+    </div>
+</div>
+<BR><BR>
+
+<div id="myGridTo" class="ag-theme-fresh" style="width: 40%; height: 36%;"></div>
+<script src="main.js"></script>
 </body>
 </html>
