@@ -1,7 +1,7 @@
 
 var columnDefs = [
     {headerName: "id", field: "id", width: 250},
-    {headerName: "amount", field: "amount", width: 90}
+    {headerName: "amount", field: "amount", width: 120}
 ];
 
 var gridOptionsFrom = {
@@ -9,7 +9,6 @@ var gridOptionsFrom = {
     rowSelection: 'single',
     onSelectionChanged: onFromSelectionChanged
 };
-
 var gridOptionsTo = {
     columnDefs: columnDefs,
     rowSelection: 'single',
@@ -23,10 +22,10 @@ function onFromSelectionChanged() {
         if (index!==0) {
             selectedRowsString += ', ';
         }
+        selectedRowsString += selectedRow.id;
     });
     document.querySelector('#selectedRows').innerHTML = selectedRowsString;
 }
-
 function onToSelectionChanged() {
     var selectedRows = gridOptionsTo.api.getSelectedRows();
     var selectedRowsString = '';
@@ -34,7 +33,6 @@ function onToSelectionChanged() {
         if (index!==0) {
             selectedRowsString += ', ';
         }
-        selectedRowsString += selectedRow.id;
     });
 }
 
@@ -45,6 +43,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     var gridDivTo = document.querySelector('#myGridTo');
     new agGrid.Grid(gridDivTo, gridOptionsTo);
+
 
     // do http request to get our sample data - not using any framework to keep the example self contained.
     // you will probably use a framework like JQuery, Angular or something else to do your HTTP calls.
