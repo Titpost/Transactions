@@ -23,7 +23,6 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 
     @Bean
     public InternalResourceViewResolver setupViewResolver() {
-        InternalResourceViewResolver resolver = new InternalResourceViewResolver();
-        return resolver;
+        return new InternalResourceViewResolver();
     }
 }

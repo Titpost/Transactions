@@ -18,13 +18,16 @@ var gridOptionsTo = {
 function onFromSelectionChanged() {
     var selectedRows = gridOptionsFrom.api.getSelectedRows();
     var selectedRowsString = '';
+    var amount = 0;
     selectedRows.forEach( function(selectedRow, index) {
         if (index!==0) {
             selectedRowsString += ', ';
         }
         selectedRowsString += selectedRow.id;
+        amount += selectedRow.amount;
     });
-    document.querySelector('#selectedRows').innerHTML = selectedRowsString;
+    document.querySelector('#from').value = selectedRowsString;
+    document.querySelector('#amount').value = amount;
 }
 function onToSelectionChanged() {
     var selectedRows = gridOptionsTo.api.getSelectedRows();
@@ -33,7 +36,9 @@ function onToSelectionChanged() {
         if (index!==0) {
             selectedRowsString += ', ';
         }
+        selectedRowsString += selectedRow.id;
     });
+    document.querySelector('#to').value = selectedRowsString;
 }
 
 // setup the grid after the page has finished loading

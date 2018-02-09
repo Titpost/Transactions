@@ -29,26 +29,30 @@ fetchData = () => {
 
 <body>
 
-Selection:
-<span id="selectedRows"></span>
+    <BR><BR>
+    <div id="myGridFrom" class="ag-theme-fresh" style="height: 36%;"></div>
 
-<div id="myGridFrom" class="ag-theme-fresh" style="width: 40%; height: 36%;"></div>
-
-<BR><BR>
-<div id='transactions'>
-    <input id='amount' type='edit'/>
-    <button onClick={ this.fetchData } id='transact'>transact</button>
-    <label>: </label>
-    <input id='from' type='edit' disabled='true'/>
-    <label> => </label>
-    <input id='to' type='edit' disabled='true'/>
-    <div>
-        <label> To select transaction direction: click on source account in the upper table and on target account in the lower one.</label>
+    <BR><BR>
+    <div id='transactions'>
+        <input id='from' type='edit' disabled='true'/>
+        <label> => </label>
+        <input id='to' type='edit' disabled='true'/>
+        <button onClick={ this.fetchData } id='transact'>transact</button>
+        <label>: </label>
+        <input id='amount' type='edit'/>
+        <div>
+            <BR>
+            <label>
+                <font color="CadetBlue">
+                To select transaction direction: click on SOURCE account in the upper table and on TARGET account in the lower one.
+                </font>
+            </label>
+        </div>
     </div>
-</div>
-<BR><BR>
 
-<div id="myGridTo" class="ag-theme-fresh" style="width: 40%; height: 36%;"></div>
+    <BR><BR>
+    <div id="myGridTo" class="ag-theme-fresh" style="height: 36%;"></div>
+
 <script src="main.js"></script>
 </body>
 </html>
