@@ -11,6 +11,9 @@ To run server and then to run all the tests from IntelliJ Idea:
 4. Run "mvn site" to generate human frendly Allure-reports. The file you need will be here: 
 "target/site/allure-maven-plugin/index.html"
 
+5. To play with FrontEnd go to http://localhost:8080/index.html
+
+
 
 P.S. The file due to which Idea will find a helpfull configuration to start Tomcat server with one click is ".idea/workspace.xml". Most likely you will not want to track this file with your Git. To tell Git leave this file alone not tracking it, type this in Idea terminal window:
 "git update-index --skip-worktree .idea/workspace.xml"
