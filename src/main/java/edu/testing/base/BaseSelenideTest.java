@@ -1,19 +1,19 @@
 package edu.testing.base;
 
-import workshop.day04_05.pageObjects.LoginPage;
+import edu.testing.pageobjects.TransactionPage;
 
 import static com.codeborne.selenide.Selenide.close;
 
 public class BaseSelenideTest {
 
-    protected LoginPage loginPage;
+    protected TransactionPage transactionPage;
 
     /**
      * Gets Object-Page instance
      */
-    protected void setUp() {
+    protected void setUp(String url) {
         // Open test site by URL
-        loginPage = LoginPage.getInstance("localhost");
+        transactionPage = TransactionPage.getInstance(url);
     }
 
     /**

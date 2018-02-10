@@ -11,16 +11,16 @@ import org.testng.annotations.Test;
 import ru.yandex.qatools.allure.annotations.Description;
 import ru.yandex.qatools.allure.annotations.Title;
 
-@Title("Page 'Menu & Elements' test class")
-@Description("Test class for slider's DnD")
+@Title("Transaction test class")
+@Description("Test to ensure that account tables look properly after transactions")
 @Listeners(AllureAttachmentListener.class)
 public class TransactionPageTest extends BaseSelenideTest {
 
-    private TransactionPage transactionPage;
+    private final static String URL = "http://localhost:8080/index.html";
 
     @BeforeClass
     public void setUp() {
-        super.setUp();
+        super.setUp(URL);
     }
 
     @AfterClass
