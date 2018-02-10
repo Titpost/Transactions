@@ -28,7 +28,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Listeners(AllureAttachmentListener.class)
 @Features({"Allure Reports Suite"})
 @Stories({"Unit tests"})
-public class AccountControllerUnitBase extends ControllerUnitBase {
+public class AccountControllerUnitTest extends ControllerUnitBase {
 
     @Mock
     private AccountService accountService;
