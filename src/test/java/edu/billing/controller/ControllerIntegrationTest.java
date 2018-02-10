@@ -19,8 +19,11 @@ public class ControllerIntegrationTest {
     @Autowired
     RestTemplate template;
 
-    // =========================================== CORS Headers ===========================================
-
+    /**
+     * CORS Headers
+     *
+     * @param headers - HttpHeader entries unity
+     */
     void validateCORSHttpHeaders(HttpHeaders headers){
         assertThat(headers.getAccessControlAllowOrigin(), is("*"));
         assertThat(headers.getAccessControlAllowHeaders(), hasItem("*"));

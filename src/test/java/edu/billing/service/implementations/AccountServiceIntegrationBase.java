@@ -20,7 +20,7 @@ import static org.junit.Assert.assertNull;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = AccountServiceIntegrationTestConfig.class)
-public class AccountServiceIntegrationTest extends ServiceIntegrationTest {
+public class AccountServiceIntegrationBase extends ServiceIntegrationBase {
 
     @Autowired
     private AccountService accountService;

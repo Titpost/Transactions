@@ -2,7 +2,7 @@ package edu.billing.controller;
 
 
 import edu.billing.model.Account;
-import edu.testing.controller.ApiControllerIntegrationTest;
+import edu.testing.config.ApiControllerIntegrationConfig;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.http.HttpStatus;
@@ -21,7 +21,7 @@ import static org.junit.Assert.assertThat;
 
 @WebAppConfiguration
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {ApiControllerIntegrationTest.class})
+@ContextConfiguration(classes = {ApiControllerIntegrationConfig.class})
 public class AccountControllerIntegrationTest extends ControllerIntegrationTest {
 
     /**

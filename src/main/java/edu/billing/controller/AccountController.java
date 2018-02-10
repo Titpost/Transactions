@@ -18,8 +18,11 @@ public class AccountController extends Controller {
     @Autowired
     private AccountService service;
 
-    // =========================================== Get All Accounts ==========================================
-
+    /**
+     * Get All Accounts
+     *
+     * @return list of accounts
+     */
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<List<Account>> getAll() {
         List<Account> accounts = service.getAllAccounts();
@@ -31,8 +34,13 @@ public class AccountController extends Controller {
         return new ResponseEntity<>(accounts, responseHeaders, HttpStatus.OK);
     }
 
-    // =========================================== Get Account By ID =========================================
 
+    /**
+     * Get Account By ID
+     *
+     * @param id account number
+     * @return account details
+     */
     @RequestMapping(value = "{id}", method = RequestMethod.GET)
     public ResponseEntity<Account> get(@PathVariable("id") String id) {
         Account account = service.getAccountByNumber(id);
@@ -44,8 +52,14 @@ public class AccountController extends Controller {
         return new ResponseEntity<>(account, responseHeaders, HttpStatus.OK);
     }
 
-    // =========================================== Create New Account ========================================
 
+    /**
+     * Create New Account
+     *
+     * @param account details
+     * @param ucBuilder URI details
+     * @return entity with HTTP headers only
+     */
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Void> create(@RequestBody Account account,
                                        UriComponentsBuilder ucBuilder) {
@@ -64,9 +78,10 @@ public class AccountController extends Controller {
 
     /**
      * Update Existing Account
-     * @param id - account number
-     * @param account - account POJO
-     * @return created account
+     *
+     * @param id account number
+     * @param account account details
+     * @return updated account
      */
     @RequestMapping(value = "{id}", method = RequestMethod.PUT)
     public ResponseEntity<Account> update(@PathVariable String id,
@@ -81,8 +96,12 @@ public class AccountController extends Controller {
         return new ResponseEntity<>(currentAccount, responseHeaders, HttpStatus.OK);
     }
 
-    // =========================================== Delete Account ============================================
-
+    /**
+     * Delete Account
+     *
+     * @param id account number
+     * @return entity with HTTP headers only
+     */
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Void> delete(@PathVariable("id") String id) {
         Account account = service.getAccountByNumber(id);
