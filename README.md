@@ -8,7 +8,7 @@ To run server and then to run all the tests from IntelliJ Idea:
 
 3. Run "mvn test". UI tests will be run on Google Chrome, so it must be already installed
 
-4. Run "mvn site" to generate human frendly Allure-reports. The file you need will be here: 
+4. Run "mvn site" to generate human frendly Allure-reports. The report file can be found here: 
 "target/site/allure-maven-plugin/index.html"
 
 5. To play with FrontEnd go to http://localhost:8080/index.html
