@@ -43,6 +43,7 @@ public class AccountController extends Controller {
      */
     @RequestMapping(value = "{id}", method = RequestMethod.GET)
     public ResponseEntity<Account> get(@PathVariable("id") String id) {
+        LOG.info("getting existing account: {}", id);
         Account account = service.getAccountByNumber(id);
 
         if (account == null) {

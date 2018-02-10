@@ -1,8 +1,12 @@
 package edu.billing.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
 
 public class Controller {
+
+    protected final Logger LOG = LoggerFactory.getLogger(Controller.class);
 
     protected final static HttpHeaders responseHeaders = new HttpHeaders();
 

@@ -33,6 +33,7 @@ public class TransactionPageTest extends BaseSelenideTest {
      */
     @Test
     public void someTest() {
+        transactionPage.checkCheckboxSelection();
     }
 
 }
