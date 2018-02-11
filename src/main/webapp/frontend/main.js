@@ -49,9 +49,6 @@ document.addEventListener('DOMContentLoaded', function() {
     var gridDivTo = document.querySelector('#myGridTo');
     new agGrid.Grid(gridDivTo, gridOptionsTo);
 
-
-    // do http request to get our sample data - not using any framework to keep the example self contained.
-    // you will probably use a framework like JQuery, Angular or something else to do your HTTP calls.
     var httpRequest = new XMLHttpRequest();
     httpRequest.open('GET', 'http://localhost:8080/api/account');
     httpRequest.send();
@@ -63,3 +60,22 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     };
 });
+
+function transact() {
+    var httpRequest = new XMLHttpRequest();
+    httpRequest.open('GET', 'http://localhost:8080/api/account/transact?from='
+        + document.querySelector('#from').value
+        + '&to='
+        + document.querySelector('#to').value
+        + '&amount='
+        + document.querySelector('#amount').value);
+    httpRequest.send();
+
+    httpRequest.onreadystatechange = function() {
+        if (httpRequest.readyState === 4 && httpRequest.status === 200) {
+            var httpResult = JSON.parse(httpRequest.responseText);
+            gridOptionsFrom.api.setRowData(httpResult);
+            gridOptionsTo.api.setRowData(httpResult);
+        }
+    };
+}

@@ -47,15 +47,15 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    @Transactional
+    //@Transactional
     public boolean transactAmount(Account from, Account to, long amount) {
 
         if (from.getAmount() < amount) {
             return false;
         }
 
-        accountDao.updateAmount(from.getId(), -amount);
-        accountDao.updateAmount(to.getId(), amount);
+        accountDao.updateAmount(from.getId(), from.getAmount() - amount);
+        accountDao.updateAmount(to.getId(), to.getAmount() + amount);
         return true;
     }
 
