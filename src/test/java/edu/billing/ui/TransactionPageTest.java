@@ -2,8 +2,6 @@ package edu.billing.ui;
 
 import edu.testing.base.BaseSelenideTest;
 import edu.testing.listeners.AllureAttachmentListener;
-
-import edu.testing.pageobjects.TransactionPage;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Listeners;
@@ -16,11 +14,9 @@ import ru.yandex.qatools.allure.annotations.Title;
 @Listeners(AllureAttachmentListener.class)
 public class TransactionPageTest extends BaseSelenideTest {
 
-    private final static String URL = "http://localhost:8080/index.html";
-
     @BeforeClass
     public void setUp() {
-        super.setUp(URL);
+        super.setUp();
     }
 
     @AfterClass
@@ -33,7 +29,7 @@ public class TransactionPageTest extends BaseSelenideTest {
      */
     @Test
     public void transactionByClicksWorks() {
-        transactionPage.checkCheckboxSelection();
+        transactionPage.checkSelectedRowsUpdatedAfterTransaction();
     }
 
 }

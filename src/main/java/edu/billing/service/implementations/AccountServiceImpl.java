@@ -50,7 +50,9 @@ public class AccountServiceImpl implements AccountService {
     @Transactional
     public boolean transactAmount(Account from, Account to, long amount) {
 
-        if (from.getAmount() < amount) {
+        if (from.getId().equals(to.getId()) ||
+            from.getAmount() < amount) {
+
             return false;
         }
 

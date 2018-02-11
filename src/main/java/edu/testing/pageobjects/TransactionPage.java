@@ -38,10 +38,12 @@ public class TransactionPage {
     }
 
     /**
-     * Click 2 checkboxes and assert they got checked
+     * Select accounts and make a transfer
      */
     @Step
-    public void checkCheckboxSelection() {
-        assertEquals(2, gridFrom.size());
+    public void checkSelectedRowsUpdatedAfterTransaction() {
+        gridFrom.stream()
+                .filter( e -> e.getText().equals("SOURCE_ID") )
+                .findFirst();
     }
 }

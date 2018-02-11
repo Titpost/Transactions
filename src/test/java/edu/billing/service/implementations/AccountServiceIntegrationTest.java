@@ -1,7 +1,7 @@
 package edu.billing.service.implementations;
 
 import edu.testing.config.AccountServiceIntegrationTestConfig;
-import edu.billing.controller.ControllerIntegrationTest;
+import edu.billing.controller.ControllerIntegrationBase;
 import edu.billing.model.Account;
 import edu.billing.service.interfaces.AccountService;
 import org.junit.Before;
@@ -47,7 +47,7 @@ public class AccountServiceIntegrationTest extends ServiceIntegrationBase {
      */
     @Test
     public void getOne() {
-        final Account account = accountService.getAccountByNumber(ControllerIntegrationTest.KNOWN_ID);
+        final Account account = accountService.getAccountByNumber(ControllerIntegrationBase.KNOWN_ID);
         assertEquals(700000, account.getAmount());
     }
 

@@ -135,7 +135,7 @@ public class AccountController extends Controller {
         }
 
         if (!service.transactAmount(accountFrom, accountTo, amount)) {
-            return new ResponseEntity<>(responseHeaders, HttpStatus.PAYLOAD_TOO_LARGE);
+            return new ResponseEntity<>(responseHeaders, HttpStatus.PRECONDITION_FAILED);
         }
 
         return getAll();

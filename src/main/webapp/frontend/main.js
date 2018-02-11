@@ -1,7 +1,7 @@
 
 var columnDefs = [
-    {headerName: "id", field: "id", width: 250},
-    {headerName: "amount", field: "amount", width: 120}
+    {headerName: "Account", field: "id", width: 250},
+    {headerName: "Ballance", field: "amount", width: 120}
 ];
 
 var gridOptionsFrom = {

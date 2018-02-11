@@ -22,7 +22,7 @@ import static org.junit.Assert.assertThat;
 @WebAppConfiguration
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {ApiControllerIntegrationConfig.class})
-public class AccountControllerIntegrationTest extends ControllerIntegrationTest {
+public class AccountControllerIntegrationTest extends ControllerIntegrationBase {
 
     /**
      * Get All the Accounts
