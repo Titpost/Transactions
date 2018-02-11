@@ -1,4 +1,4 @@
-package edu.billing.service.implementations;
+package edu.billing.service.implementations.base;
 
 import org.junit.AfterClass;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,11 +8,11 @@ import org.springframework.jdbc.datasource.embedded.EmbeddedDatabase;
 public class ServiceIntegrationBase {
 
     @Autowired
-    EmbeddedDatabase db;
+    protected EmbeddedDatabase db;
 
-    static EmbeddedDatabase dataBase;
+    protected static EmbeddedDatabase dataBase;
 
-    final String hardId = "Some id rea11y hard to meet";
+    protected final String hardId = "Some id rea11y hard to meet";
 
     /**
      * Closes DataBase connection

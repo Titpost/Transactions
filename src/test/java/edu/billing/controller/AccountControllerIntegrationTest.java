@@ -1,6 +1,7 @@
 package edu.billing.controller;
 
 
+import edu.billing.controller.base.ControllerIntegrationBase;
 import edu.billing.model.Account;
 import edu.testing.config.ApiControllerIntegrationConfig;
 import org.junit.Test;

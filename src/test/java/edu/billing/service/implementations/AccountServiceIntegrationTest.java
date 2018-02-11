@@ -1,7 +1,8 @@
 package edu.billing.service.implementations;
 
+import edu.billing.service.implementations.base.ServiceIntegrationBase;
 import edu.testing.config.AccountServiceIntegrationTestConfig;
-import edu.billing.controller.ControllerIntegrationBase;
+import edu.billing.controller.base.ControllerIntegrationBase;
 import edu.billing.model.Account;
 import edu.billing.service.interfaces.AccountService;
 import org.junit.Before;

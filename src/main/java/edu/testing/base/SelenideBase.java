@@ -4,7 +4,7 @@ import edu.testing.pageobjects.TransactionPage;
 
 import static com.codeborne.selenide.Selenide.close;
 
-public class BaseSelenideTest {
+public class SelenideBase {
 
     protected final static String URL = "http://localhost:8080/index.html";
 

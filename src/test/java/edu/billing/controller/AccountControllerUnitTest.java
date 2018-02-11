@@ -1,9 +1,9 @@
 package edu.billing.controller;
 
+import edu.billing.controller.base.ControllerUnitBase;
 import edu.billing.filter.CORSFilter;
 import edu.billing.model.Account;
 import edu.billing.service.interfaces.AccountService;
-import edu.testing.listeners.AllureAttachmentListener;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -11,9 +11,6 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.testng.annotations.Listeners;
-import ru.yandex.qatools.allure.annotations.Features;
-import ru.yandex.qatools.allure.annotations.Stories;
 
 import java.util.Arrays;
 import java.util.List;

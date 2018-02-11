@@ -1,4 +1,4 @@
-package edu.billing.controller;
+package edu.billing.controller.base;
 
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -6,16 +6,16 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 
 
-class ControllerUnitBase {
+public class ControllerUnitBase {
 
-    String URL_BASE = "/api/account";
-    MockMvc mockMvc;
+    protected String URL_BASE = "/api/account";
+    protected MockMvc mockMvc;
 
     /**
      * CORS Headers
      * @throws Exception in MockMvc.perform
      */
-    void test_cors_headers() throws Exception {
+    protected void test_cors_headers() throws Exception {
         mockMvc.perform(get(URL_BASE))
                 .andExpect(header().string("Access-Control-Allow-Origin", "*"))
                 .andExpect(header().string("Access-Control-Allow-Methods", "POST, GET, PUT, OPTIONS, DELETE"))
