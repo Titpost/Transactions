@@ -1,7 +1,7 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
-<suite name="Account tests" verbose="2" annotations="JDK">
-    <test name="Unit tests">
+<suite name="UI tests" verbose="2" annotations="JDK">
+    <test name="Transaction tests">
         <classes>
             <class name="edu.billing.ui.TransactionPageTest"/>
         </classes>
