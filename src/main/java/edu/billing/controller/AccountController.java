@@ -122,10 +122,10 @@ public class AccountController extends Controller {
      * @param to recipient account id
      * @return entity with HTTP headers only
      */
-    @RequestMapping(value = "{from}/transact/{to}/{amount}", method = RequestMethod.PUT)
-    public ResponseEntity<Void> transact(@PathVariable("from") String from,
-                                         @PathVariable("to") String to,
-                                         @PathVariable("amount") long amount) {
+    @RequestMapping(value = "transact", method = RequestMethod.GET)
+    public ResponseEntity<List<Account>> transact(@RequestParam("from") String from,
+                                                  @RequestParam("to") String to,
+                                                  @RequestParam("amount") long amount) {
         LOG.info("transacting {}: from {} to {}", amount, from, to);
         Account accountFrom = service.getAccountByNumber(from);
         Account accountTo = service.getAccountByNumber(to);
@@ -138,6 +138,6 @@ public class AccountController extends Controller {
             return new ResponseEntity<>(responseHeaders, HttpStatus.PAYLOAD_TOO_LARGE);
         }
 
-        return new ResponseEntity<>(responseHeaders, HttpStatus.OK);
+        return getAll();
     }
 }
