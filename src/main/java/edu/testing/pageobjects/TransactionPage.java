@@ -20,13 +20,8 @@ import static org.testng.Assert.assertTrue;
 
 public class TransactionPage {
 
-    private static final String main_content = ".main-content-hg";
-
-    @FindBy(css = main_content)
-    private SelenideElement mainContent;
-
-    @FindBy(css = main_content + " .support-title + .checkbox-row")
-    private SelenideElement checkboxRow;
+    @FindBy(css = "#myGridFrom .ag-body-container .ag-row")
+    private List<SelenideElement> gridFrom;
 
 
     /**
@@ -47,6 +42,6 @@ public class TransactionPage {
      */
     @Step
     public void checkCheckboxSelection() {
-        assertEquals(2, checkboxRow.$$("input:checked").size());
+        assertEquals(2, gridFrom.size());
     }
 }

@@ -29,10 +29,10 @@ public class TransactionPageTest extends BaseSelenideTest {
     }
 
     /**
-     * Elements page test
+     * Transaction test
      */
     @Test
-    public void someTest() {
+    public void transactionByClicksWorks() {
         transactionPage.checkCheckboxSelection();
     }
 
