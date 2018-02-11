@@ -64,7 +64,7 @@ public class JdbcTemplateAccountDao implements AccountDao {
 
     @Override
     public List<Account> loadAll() {
-        return jdbcTemplate.query("SELECT * FROM account", (resultSet, i) -> toAccount(resultSet));
+        return jdbcTemplate.query("SELECT * FROM account ORDER by id", (resultSet, i) -> toAccount(resultSet));
     }
 
     private Account toAccount(ResultSet resultSet) throws SQLException {

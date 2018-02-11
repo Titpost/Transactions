@@ -25,7 +25,7 @@ public class AccountController extends Controller {
      */
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<List<Account>> getAll() {
-        List<Account> accounts = service.getAllAccounts();
+        final List<Account> accounts = service.getAllAccounts();
 
         if (null == accounts || accounts.isEmpty()) {
             return new ResponseEntity<>(responseHeaders, HttpStatus.NO_CONTENT);
@@ -44,7 +44,7 @@ public class AccountController extends Controller {
     @RequestMapping(value = "{id}", method = RequestMethod.GET)
     public ResponseEntity<Account> get(@PathVariable("id") String id) {
         LOG.info("getting existing account: {}", id);
-        Account account = service.getAccountByNumber(id);
+        final Account account = service.getAccountByNumber(id);
 
         if (null == account) {
             return new ResponseEntity<>(responseHeaders, HttpStatus.NOT_FOUND);
@@ -70,7 +70,7 @@ public class AccountController extends Controller {
 
         service.saveAccount(account);
 
-        HttpHeaders headers = new HttpHeaders();
+        final HttpHeaders headers = new HttpHeaders();
         headers.setLocation(ucBuilder.path("/account/{id}")
                 .buildAndExpand(account.getId())
                 .toUri());
@@ -87,7 +87,7 @@ public class AccountController extends Controller {
     @RequestMapping(value = "{id}", method = RequestMethod.PUT)
     public ResponseEntity<Account> update(@PathVariable String id,
                                           @RequestBody Account account) {
-        Account currentAccount = service.getAccountByNumber(id);
+        final Account currentAccount = service.getAccountByNumber(id);
 
         if (null == currentAccount) {
             return new ResponseEntity<>(responseHeaders, HttpStatus.NOT_FOUND);
@@ -105,7 +105,7 @@ public class AccountController extends Controller {
      */
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Void> delete(@PathVariable("id") String id) {
-        Account account = service.getAccountByNumber(id);
+        final Account account = service.getAccountByNumber(id);
 
         if (null == account) {
             return new ResponseEntity<>(responseHeaders, HttpStatus.NOT_FOUND);
@@ -127,14 +127,14 @@ public class AccountController extends Controller {
                                                   @RequestParam("to") String to,
                                                   @RequestParam("amount") long amount) {
         LOG.info("transacting {}: from {} to {}", amount, from, to);
-        Account accountFrom = service.getAccountByNumber(from);
-        Account accountTo = service.getAccountByNumber(to);
+        final Account accountFrom = service.getAccountByNumber(from);
+        final Account accountTo = service.getAccountByNumber(to);
 
         if (null == accountFrom || null == accountTo ) {
             return new ResponseEntity<>(responseHeaders, HttpStatus.NOT_FOUND);
         }
 
-        if (!service.transactAmount(accountFrom, accountFrom, amount)) {
+        if (!service.transactAmount(accountFrom, accountTo, amount)) {
             return new ResponseEntity<>(responseHeaders, HttpStatus.PAYLOAD_TOO_LARGE);
         }
 
