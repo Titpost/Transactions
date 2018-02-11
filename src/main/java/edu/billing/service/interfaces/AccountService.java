@@ -18,5 +18,7 @@ public interface AccountService {
 
     void updateAmount(String id, long amount);
 
+    boolean transactAmount(Account from, Account to, long amount);
+
     void deleteAccount(String id);
 }

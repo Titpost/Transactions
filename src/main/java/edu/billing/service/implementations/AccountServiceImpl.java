@@ -6,6 +6,7 @@ import edu.billing.model.Account;
 import edu.billing.service.interfaces.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -43,6 +44,19 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public void updateAmount(String id, long amount) {
         accountDao.updateAmount(id, amount);
+    }
+
+    @Override
+    @Transactional
+    public boolean transactAmount(Account from, Account to, long amount) {
+
+        if (from.getAmount() < amount) {
+            return false;
+        }
+
+        accountDao.updateAmount(from.getId(), -amount);
+        accountDao.updateAmount(to.getId(), amount);
+        return true;
     }
 
     @Override

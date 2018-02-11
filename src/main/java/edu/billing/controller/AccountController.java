@@ -27,7 +27,7 @@ public class AccountController extends Controller {
     public ResponseEntity<List<Account>> getAll() {
         List<Account> accounts = service.getAllAccounts();
 
-        if (accounts == null || accounts.isEmpty()) {
+        if (null == accounts || accounts.isEmpty()) {
             return new ResponseEntity<>(responseHeaders, HttpStatus.NO_CONTENT);
         }
 
@@ -46,7 +46,7 @@ public class AccountController extends Controller {
         LOG.info("getting existing account: {}", id);
         Account account = service.getAccountByNumber(id);
 
-        if (account == null) {
+        if (null == account) {
             return new ResponseEntity<>(responseHeaders, HttpStatus.NOT_FOUND);
         }
 
@@ -89,7 +89,7 @@ public class AccountController extends Controller {
                                           @RequestBody Account account) {
         Account currentAccount = service.getAccountByNumber(id);
 
-        if (currentAccount == null) {
+        if (null == currentAccount) {
             return new ResponseEntity<>(responseHeaders, HttpStatus.NOT_FOUND);
         }
 
@@ -107,11 +107,37 @@ public class AccountController extends Controller {
     public ResponseEntity<Void> delete(@PathVariable("id") String id) {
         Account account = service.getAccountByNumber(id);
 
-        if (account == null) {
+        if (null == account) {
             return new ResponseEntity<>(responseHeaders, HttpStatus.NOT_FOUND);
         }
 
         service.deleteAccount(id);
+        return new ResponseEntity<>(responseHeaders, HttpStatus.OK);
+    }
+
+    /**
+     * Make a transfer from one account to another
+     *
+     * @param from source account id
+     * @param to recipient account id
+     * @return entity with HTTP headers only
+     */
+    @RequestMapping(value = "{from}/transact/{to}/{amount}", method = RequestMethod.PUT)
+    public ResponseEntity<Void> transact(@PathVariable("from") String from,
+                                         @PathVariable("to") String to,
+                                         @PathVariable("amount") long amount) {
+        LOG.info("transacting {}: from {} to {}", amount, from, to);
+        Account accountFrom = service.getAccountByNumber(from);
+        Account accountTo = service.getAccountByNumber(to);
+
+        if (null == accountFrom || null == accountTo ) {
+            return new ResponseEntity<>(responseHeaders, HttpStatus.NOT_FOUND);
+        }
+
+        if (!service.transactAmount(accountFrom, accountFrom, amount)) {
+            return new ResponseEntity<>(responseHeaders, HttpStatus.PAYLOAD_TOO_LARGE);
+        }
+
         return new ResponseEntity<>(responseHeaders, HttpStatus.OK);
     }
 }
