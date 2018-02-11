@@ -52,13 +52,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var httpRequest = new XMLHttpRequest();
     httpRequest.open('GET', 'http://localhost:8080/api/account');
     httpRequest.send();
-    httpRequest.onreadystatechange = function() {
-        if (httpRequest.readyState === 4 && httpRequest.status === 200) {
-            var httpResult = JSON.parse(httpRequest.responseText);
-            gridOptionsFrom.api.setRowData(httpResult);
-            gridOptionsTo.api.setRowData(httpResult);
-        }
-    };
+    requestOnReady(httpRequest);
 });
 
 function transact() {
@@ -70,7 +64,10 @@ function transact() {
         + '&amount='
         + document.querySelector('#amount').value);
     httpRequest.send();
+    requestOnReady(httpRequest);
+}
 
+function requestOnReady(httpRequest) {
     httpRequest.onreadystatechange = function() {
         if (httpRequest.readyState === 4 && httpRequest.status === 200) {
             var httpResult = JSON.parse(httpRequest.responseText);
