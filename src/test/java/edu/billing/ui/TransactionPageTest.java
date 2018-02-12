@@ -2,6 +2,7 @@ package edu.billing.ui;
 
 import edu.testing.base.SelenideBase;
 import edu.testing.listeners.AllureAttachmentListener;
+import edu.testing.pageobjects.TransactionPage;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Listeners;
@@ -16,7 +17,7 @@ public class TransactionPageTest extends SelenideBase {
 
     @BeforeClass
     public void setUp() {
-        super.setUp();
+        transactionPage = TransactionPage.getInstance(URL);
     }
 
     @AfterClass
@@ -31,5 +32,4 @@ public class TransactionPageTest extends SelenideBase {
     public void transactionByClicksWorks() {
         transactionPage.checkSelectedRowsUpdatedAfterTransaction();
     }
-
 }
