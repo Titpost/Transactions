@@ -24,11 +24,13 @@ public class TransactionPageTest extends SelenideBase {
         super.closeDown();
     }
 
-    /**
-     * Transaction test
-     */
     @Test
-    public void transactionByClicksWorks() {
+    public void transactionItself() {
         transactionPage.checkSelectedRowsUpdatedAfterTransaction();
+    }
+
+    @Test
+    public void transactionByClicksOnSameAccount() {
+        transactionPage.checkClickedRowsNotModifiedWhenNotNeeded();
     }
 }
