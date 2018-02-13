@@ -15,6 +15,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import java.util.Arrays;
 import java.util.List;
 
+import static edu.billing.config.Settings.CONTROLLER_API;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.core.Is.is;
 import static org.mockito.Mockito.*;
@@ -60,7 +61,7 @@ public class AccountControllerUnitTest extends ControllerUnitBase {
 
         when(accountService.getAllAccounts()).thenReturn(accounts);
 
-        mockMvc.perform(get(URL_BASE))
+        mockMvc.perform(get(CONTROLLER_API))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
                 .andExpect(jsonPath("$", hasSize(2)))

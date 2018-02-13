@@ -40,7 +40,7 @@ public class AccountControllerIntegrationTest extends ControllerIntegrationBase 
      */
     @Test
     public void get_by_id_success() {
-        ResponseEntity<Account> response = template.getForEntity(BASE_URI + "/" + KNOWN_ID, Account.class);
+        ResponseEntity<Account> response = template.getForEntity(BASE_URI + '/' + KNOWN_ID, Account.class);
         Account amount = response.getBody();
         assertThat(amount.getId(), is(KNOWN_ID));
         assertThat(response.getStatusCode(), is(HttpStatus.OK));
@@ -53,7 +53,7 @@ public class AccountControllerIntegrationTest extends ControllerIntegrationBase 
     @Test
     public void get_by_id_failure_not_found() {
         try {
-            template.getForEntity(BASE_URI + "/" + UNKNOWN_ID, Account.class);
+            template.getForEntity(BASE_URI + '/' + UNKNOWN_ID, Account.class);
             fail("should return 404 not found");
         } catch (HttpClientErrorException e) {
             assertThat(e.getStatusCode(), is(HttpStatus.NOT_FOUND));
@@ -71,6 +71,7 @@ public class AccountControllerIntegrationTest extends ControllerIntegrationBase 
                 .build();
         URI location = template.postForLocation(BASE_URI, newAccount, Account.class);
         assertThat(location, notNullValue());
+        template.delete(BASE_URI + '/' + newAccount.getId());
     }
 
     /**
@@ -98,7 +99,7 @@ public class AccountControllerIntegrationTest extends ControllerIntegrationBase 
         Account existingAccount = Account.builder().id(KNOWN_ID)
                 .amount(777)
                 .build();
-        template.put(BASE_URI + "/" + existingAccount.getId(), existingAccount);
+        template.put(BASE_URI + '/' + existingAccount.getId(), existingAccount);
     }
 
     /**
@@ -110,7 +111,7 @@ public class AccountControllerIntegrationTest extends ControllerIntegrationBase 
                 .id("update")
                 .build();
         try {
-            template.put(BASE_URI + "/" + existingAccount.getId(), existingAccount);
+            template.put(BASE_URI + '/' + existingAccount.getId(), existingAccount);
             fail("should return 404 not found");
         } catch (HttpClientErrorException e) {
             assertThat(e.getStatusCode(), is(HttpStatus.NOT_FOUND));
@@ -123,7 +124,7 @@ public class AccountControllerIntegrationTest extends ControllerIntegrationBase 
      */
     @Test
     public void delete_account_success() {
-        template.delete(BASE_URI + "/" + getLastAccount().getId());
+        template.delete(BASE_URI + '/' + getLastAccount().getId());
     }
 
     /**
@@ -132,7 +133,7 @@ public class AccountControllerIntegrationTest extends ControllerIntegrationBase 
     @Test
     public void delete_account_fail() {
         try {
-            template.delete(BASE_URI + "/" + UNKNOWN_ID);
+            template.delete(BASE_URI + '/' + UNKNOWN_ID);
             fail("should return 404 not found");
         } catch (HttpClientErrorException e) {
             assertThat(e.getStatusCode(), is(HttpStatus.NOT_FOUND));

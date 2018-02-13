@@ -1,5 +1,6 @@
 package edu.billing.controller;
 
+import edu.billing.config.Settings;
 import edu.billing.model.Account;
 import edu.billing.service.interfaces.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/account")
+@RequestMapping(Settings.CONTROLLER_API)
 public class AccountController extends Controller {
 
     @Autowired

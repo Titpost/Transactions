@@ -5,6 +5,8 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.web.client.RestTemplate;
 
+import static edu.billing.config.Settings.CONTROLLER_API;
+import static edu.billing.config.Settings.HOST_URL;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsCollectionContaining.hasItem;
 import static org.hamcrest.core.IsCollectionContaining.hasItems;
@@ -12,7 +14,7 @@ import static org.junit.Assert.assertThat;
 
 public class ControllerIntegrationBase {
 
-    protected static final String BASE_URI = "http://localhost:8080/api/account";
+    protected static final String BASE_URI = HOST_URL + CONTROLLER_API;
     public static final String NEW_ID = "1234 5678 0000 0000";
     public static final String UNKNOWN_ID = "Unknown";
     public static final String KNOWN_ID = "7777 7777 7777 7777";
