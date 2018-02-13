@@ -4,7 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 
 /**
- * Config for Controller Integration Tests
+ * Config for account-API.
  */
 public class ApiControllerIntegrationConfig {
 

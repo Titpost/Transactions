@@ -16,9 +16,6 @@ class ServiceIntegrationTestConfig {
         return new JdbcTemplate(embeddedDatabase());
     }
 
-
-    static EmbeddedDatabase db = null;
-
     @Lazy
     @Bean
     EmbeddedDatabase embeddedDatabase() {
