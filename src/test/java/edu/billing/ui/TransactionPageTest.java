@@ -2,7 +2,6 @@ package edu.billing.ui;
 
 import edu.testing.base.SelenideBase;
 import edu.testing.listeners.AllureAttachmentListener;
-import edu.testing.pageobjects.TransactionPage;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Listeners;
@@ -17,7 +16,7 @@ public class TransactionPageTest extends SelenideBase {
 
     @BeforeClass
     public void setUp() {
-        transactionPage = TransactionPage.getInstance(URL);
+        super.setUp();
     }
 
     @AfterClass

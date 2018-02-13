@@ -12,6 +12,7 @@ import ru.yandex.qatools.allure.annotations.Step;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 import static com.codeborne.selenide.Condition.checked;
@@ -19,6 +20,7 @@ import static com.codeborne.selenide.Condition.exist;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
 import static edu.testing.base.SelenideBase.SOURCE_ID;
+import static edu.testing.base.SelenideBase.TARGET_ID;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
@@ -27,6 +29,9 @@ public class TransactionPage {
 
     @FindBy(css = "#myGridFrom .ag-body-container .ag-row")
     private List<SelenideElement> gridFrom;
+
+    @FindBy(css = "#myGridTo .ag-body-container .ag-row")
+    private List<SelenideElement> gridTo;
 
     /**
      * Factory method
@@ -42,7 +47,7 @@ public class TransactionPage {
     }
 
     /**
-     * Select accounts and make a transfer
+     * Select accounts and make a transfer of random amount
      */
     @Step
     public void checkSelectedRowsUpdatedAfterTransaction() {
@@ -50,27 +55,21 @@ public class TransactionPage {
         final String idLocator = "div[col-id='id']";
         final String amountLocator = "div[col-id='amount']";
 
-        final Pair<String, String> row = gridFrom.stream()
-                .map(r -> new Pair<>(
-                        r.$(idLocator).getText(),
-                        r.$(amountLocator).getText())
-                )
-                .filter(e -> e.key.equals(SOURCE_ID))
-                .findFirst().get();
-/*
-        final String sourceId = sourceRow
-                .$(idLocator)
-                .getText();
-/*
-        final String sourceAmount = sourceRow
-                .$("div[col-id='id']")
-                .getText();*/
-    }
+        final int sourceAmount = Integer.getInteger(gridFrom.stream()
+                .filter(r -> r.$(idLocator).getText().equals(SOURCE_ID))
+                .findFirst().get()
+                .$(amountLocator)
+                .getText()
+        );
 
-    @Data
-    @AllArgsConstructor(staticName = "of")
-    public class Pair<F, S> {
-        private F key;
-        private S value;
+        final int targetAmount = Integer.getInteger(gridTo.stream()
+                .filter(r -> r.$(idLocator).getText().equals(TARGET_ID))
+                .findFirst().get()
+                .$(amountLocator)
+                .getText()
+        );
+
+        final Random random = new Random();
+        final int delta = random.nextInt(sourceAmount);
     }
 }
