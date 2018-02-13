@@ -1,6 +1,6 @@
 # Transactions
 
-To run server and then to run all the tests from IntelliJ Idea:
+To run server and then to run all the tests from IntelliJ Idea make sure Lombok Plugin is installed. Use Java SDK 8.
 
 1. Run "mvn compile"
 
