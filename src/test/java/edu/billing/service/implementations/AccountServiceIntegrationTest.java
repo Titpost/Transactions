@@ -1,10 +1,10 @@
 package edu.billing.service.implementations;
 
-import edu.billing.service.implementations.base.ServiceIntegrationBase;
-import edu.testing.config.AccountServiceIntegrationTestConfig;
 import edu.billing.controller.base.ControllerIntegrationBase;
 import edu.billing.model.Account;
+import edu.billing.service.implementations.base.ServiceIntegrationBase;
 import edu.billing.service.interfaces.AccountService;
+import edu.testing.config.AccountServiceIntegrationTestConfig;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,9 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import static edu.billing.controller.base.ControllerIntegrationBase.NEW_ID;
+import static edu.billing.controller.base.ControllerIntegrationBase.UNKNOWN_ID;
+import static org.junit.Assert.*;
 
 /**
  * Integral test for Account Service.
@@ -59,23 +59,25 @@ public class AccountServiceIntegrationTest extends ServiceIntegrationBase {
     public void createNew() {
 
         final long prevCount = getCount();
+        final String suffix1 = "_1";
+        final String suffix2 = "_2";
 
         // create new account with hardId and some amount
         final int amount1 = 1;
-        Account account = Account.builder().id(hardId).amount(amount1).build();
+        Account account = Account.builder().id(NEW_ID + suffix1).amount(amount1).build();
         accountService.saveAccount(account);
 
         // create new account with hardId2 and some amount
-        account = Account.builder().id(hardId + "_2").amount(amount1).build();
+        account = Account.builder().id(NEW_ID + suffix2).amount(amount1).build();
         accountService.saveAccount(account);
 
         // create new account with hardId1 and some amount
         final int amount2 = 2;
-        account = Account.builder().id(hardId).amount(amount2).build();
+        account = Account.builder().id(NEW_ID + suffix1).amount(amount2).build();
         accountService.saveAccount(account);
 
         // create new account with hardId2 and some amount
-        account = Account.builder().id(hardId +"_2").amount(amount2).build();
+        account = Account.builder().id(NEW_ID + suffix2).amount(amount2).build();
         accountService.saveAccount(account);
 
         // check row count
@@ -91,7 +93,7 @@ public class AccountServiceIntegrationTest extends ServiceIntegrationBase {
         long initialCount = getCount();
 
         // create new account
-        Account account = Account.builder().id(hardId + "_nonUnique").amount(1).build();
+        Account account = Account.builder().id(NEW_ID + "_nonUnique").amount(1).build();
         accountService.saveAccount(account);
 
         // must be +1
@@ -111,7 +113,7 @@ public class AccountServiceIntegrationTest extends ServiceIntegrationBase {
     public void findNotExisting() {
 
         // find account by its id
-        Account account = accountService.getAccountByNumber(hardId);
+        Account account = accountService.getAccountByNumber(UNKNOWN_ID);
         assertNull(account);
     }
 

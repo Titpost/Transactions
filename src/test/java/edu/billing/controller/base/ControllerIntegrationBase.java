@@ -12,8 +12,9 @@ import static org.junit.Assert.assertThat;
 
 public class ControllerIntegrationBase {
 
-    protected String BASE_URI = "http://localhost:8080/api/account";
-    protected static final String UNKNOWN_ID = "Unknown";
+    protected static final String BASE_URI = "http://localhost:8080/api/account";
+    public static final String NEW_ID = "1234 5678 0000 0000";
+    public static final String UNKNOWN_ID = "Unknown";
     public static final String KNOWN_ID = "7777 7777 7777 7777";
 
     @Autowired

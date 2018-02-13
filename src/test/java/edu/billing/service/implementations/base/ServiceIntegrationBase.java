@@ -12,8 +12,6 @@ public class ServiceIntegrationBase {
 
     protected static EmbeddedDatabase dataBase;
 
-    protected final String hardId = "Some id rea11y hard to meet";
-
     /**
      * Closes DataBase connection
      */

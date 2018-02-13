@@ -26,7 +26,7 @@ import static org.junit.Assert.assertThat;
 public class AccountControllerIntegrationTest extends ControllerIntegrationBase {
 
     /**
-     * Get All the Accounts
+     * Get all the accounts
      */
     @Test
     public void get_all_success() {
@@ -36,7 +36,7 @@ public class AccountControllerIntegrationTest extends ControllerIntegrationBase 
     }
 
     /**
-     * Get Account By ID
+     * Get account by id
      */
     @Test
     public void get_by_id_success() {
@@ -62,11 +62,11 @@ public class AccountControllerIntegrationTest extends ControllerIntegrationBase 
     }
 
     /**
-     * Create New Account
+     * Create new account
      */
     @Test
     public void create_new_account_success() {
-        Account newAccount = Account.builder().id("888")
+        Account newAccount = Account.builder().id(NEW_ID)
                 .amount(1)
                 .build();
         URI location = template.postForLocation(BASE_URI, newAccount, Account.class);
@@ -91,7 +91,7 @@ public class AccountControllerIntegrationTest extends ControllerIntegrationBase 
     }
 
     /**
-     * Update Existing Account
+     * Update existing account
      */
     @Test
     public void update_account_success() {

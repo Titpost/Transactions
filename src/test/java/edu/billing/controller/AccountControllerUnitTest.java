@@ -41,7 +41,7 @@ public class AccountControllerUnitTest extends ControllerUnitBase {
     }
 
     /**
-     * Get All Accounts
+     * Get all the accounts
      * @throws Exception in MockMvc.perform
      */
     @Test
