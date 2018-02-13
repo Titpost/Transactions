@@ -1,45 +1,55 @@
 package edu.billing.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Lazy;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabase;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import javax.sql.DataSource;
+
+/**
+ * Configuration for Account Service.
+ */
 @Configuration
-@EnableTransactionManagement
+@PropertySource("classpath:database.properties")
 @ComponentScan(basePackages = {
         "edu.billing.service.implementations",
         "edu.billing.dao"
 })
-class DataBaseConfig {
+public class DataBaseConfig {
 
-    private static EmbeddedDatabase embeddedDatabase = new EmbeddedDatabaseBuilder()
-                .setType(EmbeddedDatabaseType.H2)
-                .setName("Integral")
-                .addScript("testingDataBaseScripts/create-test-db.sql")
-                .addScript("testingDataBaseScripts/insert-test-data.sql")
-                .build();
+    @Autowired
+    Environment environment;
+
+    private final String URL = "url";
+    private final String USER = "dbuser";
+    private final String DRIVER = "driver";
+    private final String PASSWORD = "dbpassword";
+
+    @Bean
+    DataSource dataSource() {
+        final DriverManagerDataSource driverManagerDataSource = new DriverManagerDataSource();
+        driverManagerDataSource.setUrl(environment.getProperty(URL));
+        driverManagerDataSource.setUsername(environment.getProperty(USER));
+        driverManagerDataSource.setPassword(environment.getProperty(PASSWORD));
+        driverManagerDataSource.setDriverClassName(environment.getProperty(DRIVER));
+        return driverManagerDataSource;
+    }
 
     @Bean
     JdbcTemplate jdbcTemplate() {
-        return new JdbcTemplate(embeddedDatabase());
+        return new JdbcTemplate(dataSource());
     }
 
-    @Lazy
-    @Bean
-    EmbeddedDatabase embeddedDatabase() {
-        return embeddedDatabase;
-    }
 
     @Bean
     public PlatformTransactionManager transactionManager() {
-        return new DataSourceTransactionManager(embeddedDatabase());
+        return new DataSourceTransactionManager(dataSource());
     }
 }
