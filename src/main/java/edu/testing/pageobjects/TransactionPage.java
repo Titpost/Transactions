@@ -30,6 +30,18 @@ public class TransactionPage {
     @FindBy(css = "#myGridFrom .ag-body-container .ag-row")
     private List<SelenideElement> gridFrom;
 
+    @FindBy(css = "#from")
+    private SelenideElement fromElement;
+
+    @FindBy(css = "#to")
+    private SelenideElement toElement;
+
+    @FindBy(css = "#transact")
+    private SelenideElement transactElement;
+
+    @FindBy(css = "#amount")
+    private SelenideElement amountElement;
+
     @FindBy(css = "#myGridTo .ag-body-container .ag-row")
     private List<SelenideElement> gridTo;
 
@@ -70,6 +82,12 @@ public class TransactionPage {
         );
 
         final Random random = new Random();
-        final int delta = random.nextInt(sourceAmount);
+        final Integer delta = random.nextInt(sourceAmount);
+        amountElement.setValue(delta.toString());
+
+        fromElement.setValue(SOURCE_ID);
+        toElement.setValue(TARGET_ID);
+
+        transactElement.click();
     }
 }
