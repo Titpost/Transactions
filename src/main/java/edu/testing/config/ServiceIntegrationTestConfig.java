@@ -21,8 +21,8 @@ class ServiceIntegrationTestConfig {
     EmbeddedDatabase embeddedDatabase() {
         return new EmbeddedDatabaseBuilder()
                 .setType(EmbeddedDatabaseType.H2)
-                .addScript("create-test-db.sql")
-                .addScript("insert-test-data.sql")
+                .addScript("testingDataBaseScripts/create-test-db.sql")
+                .addScript("testingDataBaseScripts/insert-test-data.sql")
                 .build();
     }
 }

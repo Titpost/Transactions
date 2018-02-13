@@ -23,8 +23,8 @@ class DataBaseConfig {
     private static EmbeddedDatabase embeddedDatabase = new EmbeddedDatabaseBuilder()
                 .setType(EmbeddedDatabaseType.H2)
                 .setName("Integral")
-                .addScript("create-test-db.sql")
-                .addScript("insert-test-data.sql")
+                .addScript("testingDataBaseScripts/create-test-db.sql")
+                .addScript("testingDataBaseScripts/insert-test-data.sql")
                 .build();
 
     @Bean

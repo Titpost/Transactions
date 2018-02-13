@@ -5,8 +5,8 @@ import java.util.ResourceBundle;
 
 public class Settings {
 
+    private final static String HOST = "host_url";
     public final static String CONTROLLER_API = "/api/account";
-
 
     private final static ResourceBundle bundle =
             ResourceBundle.getBundle(
@@ -14,5 +14,5 @@ public class Settings {
                     new Locale("en", "EN", "windows")
             );
 
-    public final static String HOST_URL = bundle.getString("host_url");
+    public final static String HOST_URL = bundle.getString(HOST);
 }
