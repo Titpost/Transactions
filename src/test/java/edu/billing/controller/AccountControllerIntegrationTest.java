@@ -41,8 +41,7 @@ public class AccountControllerIntegrationTest extends ControllerIntegrationBase 
     @Test
     public void get_by_id_success() {
         ResponseEntity<Account> response = template.getForEntity(BASE_URI + '/' + KNOWN_ID, Account.class);
-        Account amount = response.getBody();
-        assertThat(amount.getId(), is(KNOWN_ID));
+        assertThat(response.getBody().getId(), is(KNOWN_ID));
         assertThat(response.getStatusCode(), is(HttpStatus.OK));
         validateCORSHttpHeaders(response.getHeaders());
     }
@@ -65,13 +64,19 @@ public class AccountControllerIntegrationTest extends ControllerIntegrationBase 
      * Create new account
      */
     @Test
-    public void create_new_account_success() {
+    public void create_new_account_then_delete_success() {
         Account newAccount = Account.builder().id(NEW_ID)
                 .amount(1)
                 .build();
         URI location = template.postForLocation(BASE_URI, newAccount, Account.class);
         assertThat(location, notNullValue());
         template.delete(BASE_URI + '/' + newAccount.getId());
+        try {
+            template.getForEntity(BASE_URI + '/' + NEW_ID, Account.class);
+            fail("should return 404 not found");
+        } catch (HttpClientErrorException e) {
+            assertThat(e.getStatusCode(), is(HttpStatus.NOT_FOUND));
+        }
     }
 
     /**
@@ -96,10 +101,15 @@ public class AccountControllerIntegrationTest extends ControllerIntegrationBase 
      */
     @Test
     public void update_account_success() {
+        final long amount = 777;
         Account existingAccount = Account.builder().id(KNOWN_ID)
-                .amount(777)
+                .amount(amount)
                 .build();
         template.put(BASE_URI + '/' + existingAccount.getId(), existingAccount);
+        assertThat(
+                template.getForEntity(BASE_URI + '/' + KNOWN_ID, Account.class).getBody().getAmount(),
+                is(amount)
+        );
     }
 
     /**
@@ -120,14 +130,6 @@ public class AccountControllerIntegrationTest extends ControllerIntegrationBase 
     }
 
     /**
-     * Delete an existing Account
-     */
-    @Test
-    public void delete_account_success() {
-        template.delete(BASE_URI + '/' + getLastAccount().getId());
-    }
-
-    /**
      * Fail on deleting a non-existing account
      */
     @Test
@@ -139,11 +141,5 @@ public class AccountControllerIntegrationTest extends ControllerIntegrationBase 
             assertThat(e.getStatusCode(), is(HttpStatus.NOT_FOUND));
             validateCORSHttpHeaders(e.getResponseHeaders());
         }
-    }
-
-    private Account getLastAccount() {
-        ResponseEntity<Account[]> response = template.getForEntity(BASE_URI, Account[].class);
-        Account[] accounts = response.getBody();
-        return accounts[accounts.length - 1];
     }
 }
