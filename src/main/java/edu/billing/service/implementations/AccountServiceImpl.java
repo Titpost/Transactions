@@ -42,13 +42,13 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public void updateAmount(String id, long amount) {
+    synchronized public void updateAmount(String id, long amount) {
         accountDao.updateAmount(id, amount);
     }
 
     @Override
     @Transactional
-    public boolean transactAmount(Account from, Account to, long amount) {
+    synchronized public boolean transactAmount(Account from, Account to, long amount) {
 
         if (from.getId().equals(to.getId()) ||
             from.getAmount() < amount) {

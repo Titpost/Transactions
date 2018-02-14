@@ -1,29 +1,18 @@
 package edu.testing.pageobjects;
 
 import com.codeborne.selenide.Configuration;
-import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
-import edu.testing.base.SelenideBase;
-import lombok.AllArgsConstructor;
-import lombok.Data;
 import org.openqa.selenium.support.FindBy;
 import ru.yandex.qatools.allure.annotations.Step;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
-import java.util.stream.Collectors;
 
-import static com.codeborne.selenide.Condition.checked;
-import static com.codeborne.selenide.Condition.exist;
-import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.Selenide.refresh;
 import static edu.testing.base.SelenideBase.SOURCE_ID;
 import static edu.testing.base.SelenideBase.TARGET_ID;
 import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertTrue;
 import static org.testng.Assert.fail;
 
 
@@ -78,6 +67,7 @@ public class TransactionPage {
 
         fromElement.setValue(SOURCE_ID);
         toElement.setValue(TARGET_ID);
+
         transactElement.click();
         refresh();
 
