@@ -101,6 +101,7 @@ public class AccountControllerIntegrationTest extends ControllerIntegrationBase 
      */
     @Test
     public void update_account_success() {
+        ResponseEntity<Account> original = template.getForEntity(BASE_URI + '/' + KNOWN_ID, Account.class);
         final long amount = 777;
         Account existingAccount = Account.builder().id(KNOWN_ID)
                 .amount(amount)
@@ -110,6 +111,7 @@ public class AccountControllerIntegrationTest extends ControllerIntegrationBase 
                 template.getForEntity(BASE_URI + '/' + KNOWN_ID, Account.class).getBody().getAmount(),
                 is(amount)
         );
+        template.put(BASE_URI + '/' + original.getBody().getId(), original.getBody());
     }
 
     /**
