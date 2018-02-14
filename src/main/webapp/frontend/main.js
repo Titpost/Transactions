@@ -56,6 +56,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function transact() {
+    document.querySelector('#status').innerHTML = '<font color="Red">processing...</font>';
     var httpRequest = new XMLHttpRequest();
     httpRequest.open('GET', 'http://localhost:8080/api/account/transact?from='
         + document.querySelector('#from').value
@@ -74,5 +75,6 @@ function requestOnReady(httpRequest) {
             gridOptionsFrom.api.setRowData(httpResult);
             gridOptionsTo.api.setRowData(httpResult);
         }
+        document.querySelector('#status').innerHTML = '<font color="Green">ready</font>';
     };
 }

@@ -8,8 +8,9 @@ import ru.yandex.qatools.allure.annotations.Step;
 import java.util.List;
 import java.util.Random;
 
+import static com.codeborne.selenide.Condition.text;
+import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
-import static com.codeborne.selenide.Selenide.refresh;
 import static edu.testing.base.SelenideBase.SOURCE_ID;
 import static edu.testing.base.SelenideBase.TARGET_ID;
 import static org.testng.Assert.assertEquals;
@@ -49,6 +50,7 @@ public class TransactionPage {
 
         System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
         Configuration.browser = "CHROME";
+        Configuration.startMaximized = false;
 
         return open(pageUrl, TransactionPage.class);
     }
@@ -68,8 +70,7 @@ public class TransactionPage {
         fromElement.setValue(SOURCE_ID);
         toElement.setValue(TARGET_ID);
 
-        transactElement.click();
-        refresh();
+        clickAndEnsureStatusReady();
 
         assertEquals(sourceAmount - delta, getAmount(gridFrom, SOURCE_ID));
         assertEquals(targetAmount + delta, getAmount(gridFrom, TARGET_ID));
@@ -86,8 +87,7 @@ public class TransactionPage {
         getRow(gridFrom, SOURCE_ID).click();
         getRow(gridTo, SOURCE_ID).click();
 
-        transactElement.click();
-        refresh();
+        clickAndEnsureStatusReady();
 
         assertEquals(amount, getAmount(gridFrom, SOURCE_ID));
         assertEquals(amount, getAmount(gridTo, SOURCE_ID));
@@ -123,5 +123,13 @@ public class TransactionPage {
                     fail("Element not found: " + idLocator);
                     return null;
                 });
+    }
+
+    /**
+     * Start transaction and make sure ajax-call is finished before proceeding
+     */
+    private void clickAndEnsureStatusReady() {
+        transactElement.click();
+        $("#status").shouldHave(text("ready"));
     }
 }
