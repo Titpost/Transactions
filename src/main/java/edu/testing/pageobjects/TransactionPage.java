@@ -10,6 +10,7 @@ import java.util.Random;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.$$;
 import static com.codeborne.selenide.Selenide.open;
 import static edu.testing.base.SelenideBase.SOURCE_ID;
 import static edu.testing.base.SelenideBase.TARGET_ID;
@@ -19,8 +20,8 @@ import static org.testng.Assert.fail;
 
 public class TransactionPage {
 
-    @FindBy(css = "#myGridFrom .ag-body-container .ag-row")
-    private List<SelenideElement> gridFrom;
+    @FindBy(css = fromLocator)
+    private List<SelenideElement> rowsSetFrom;
 
     @FindBy(css = "#from")
     private SelenideElement fromElement;
@@ -34,9 +35,11 @@ public class TransactionPage {
     @FindBy(css = "#amount")
     private SelenideElement amountElement;
 
-    @FindBy(css = "#myGridTo .ag-body-container .ag-row")
-    private List<SelenideElement> gridTo;
+    @FindBy(css = toLocator)
+    private List<SelenideElement> rowsSetTo;
 
+    private final static String fromLocator = "#myGridFrom .ag-body-container .ag-row";
+    private final static String toLocator = "#myGridTo .ag-body-container .ag-row";
     private final static String idLocator = "div[col-id='id']";
     private final static Random random = new Random();
 
@@ -61,8 +64,8 @@ public class TransactionPage {
     @Step
     public void checkSelectedRowsUpdatedAfterTransaction() {
 
-        final int sourceAmount = getAmount(gridFrom, SOURCE_ID);
-        final int targetAmount = getAmount(gridFrom, TARGET_ID);
+        final int sourceAmount = getAmount(rowsSetFrom, SOURCE_ID);
+        final int targetAmount = getAmount(rowsSetFrom, TARGET_ID);
 
         final Integer delta = random.nextInt(sourceAmount);
         amountElement.setValue(delta.toString());
@@ -72,8 +75,8 @@ public class TransactionPage {
 
         clickAndEnsureStatusReady();
 
-        assertEquals(sourceAmount - delta, getAmount(gridFrom, SOURCE_ID));
-        assertEquals(targetAmount + delta, getAmount(gridFrom, TARGET_ID));
+        assertEquals(sourceAmount - delta, getAmount(rowsSetFrom, SOURCE_ID));
+        assertEquals(targetAmount + delta, getAmount(rowsSetFrom, TARGET_ID));
     }
 
     /**
@@ -82,15 +85,15 @@ public class TransactionPage {
     @Step
     public void checkClickedRowsNotModifiedWhenNotNeeded() {
 
-        final int amount = getAmount(gridFrom, SOURCE_ID);
+        final int amount = getAmount(rowsSetFrom, SOURCE_ID);
 
-        getRow(gridFrom, SOURCE_ID).click();
-        getRow(gridTo, SOURCE_ID).click();
+        getRow(rowsSetFrom, SOURCE_ID).click();
+        getRow(rowsSetTo, SOURCE_ID).click();
 
         clickAndEnsureStatusReady();
 
-        assertEquals(amount, getAmount(gridFrom, SOURCE_ID));
-        assertEquals(amount, getAmount(gridTo, SOURCE_ID));
+        assertEquals(amount, getAmount(rowsSetFrom, SOURCE_ID));
+        assertEquals(amount, getAmount(rowsSetTo, SOURCE_ID));
     }
 
 
@@ -131,5 +134,12 @@ public class TransactionPage {
     private void clickAndEnsureStatusReady() {
         transactElement.click();
         $("#status").shouldHave(text("ready"));
+
+        while (0 == rowsSetFrom.size()) {
+            rowsSetFrom = $$(fromLocator);
+        }
+        while (0 == rowsSetTo.size()) {
+            rowsSetTo = $$(toLocator);
+        }
     }
 }
